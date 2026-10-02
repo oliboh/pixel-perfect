@@ -5,7 +5,6 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --font-display: "Fraunces", Georgia, serif;
   --font-sans: "Manrope", system-ui, sans-serif;
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
@@ -41,32 +40,32 @@
 }
 
 :root {
-  --radius: 0.875rem;
-  --background: oklch(0.982 0.008 85);
-  --foreground: oklch(0.3 0.015 250);
-  --card: oklch(0.995 0.004 85);
-  --card-foreground: oklch(0.3 0.015 250);
-  --popover: oklch(0.995 0.004 85);
-  --popover-foreground: oklch(0.3 0.015 250);
-  --primary: oklch(0.36 0.05 160);
-  --primary-foreground: oklch(0.98 0.008 85);
-  --secondary: oklch(0.95 0.012 80);
-  --secondary-foreground: oklch(0.3 0.015 250);
-  --muted: oklch(0.95 0.012 80);
-  --muted-foreground: oklch(0.52 0.015 250);
-  --accent: oklch(0.93 0.05 70);
-  --accent-foreground: oklch(0.38 0.08 55);
-  --destructive: oklch(0.577 0.2 27);
+  --radius: 0.5rem;
+  --background: oklch(0.12 0.018 165);
+  --foreground: oklch(0.96 0.012 165);
+  --card: oklch(0.17 0.025 165);
+  --card-foreground: oklch(0.96 0.012 165);
+  --popover: oklch(0.17 0.025 165);
+  --popover-foreground: oklch(0.96 0.012 165);
+  --primary: oklch(0.78 0.16 158);
+  --primary-foreground: oklch(0.12 0.025 165);
+  --secondary: oklch(0.23 0.028 170);
+  --secondary-foreground: oklch(0.94 0.012 165);
+  --muted: oklch(0.21 0.018 180);
+  --muted-foreground: oklch(0.72 0.018 175);
+  --accent: oklch(0.74 0.13 70);
+  --accent-foreground: oklch(0.14 0.02 165);
+  --destructive: oklch(0.64 0.2 25);
   --destructive-foreground: oklch(0.98 0 0);
-  --border: oklch(0.9 0.012 80);
-  --input: oklch(0.88 0.012 80);
-  --ring: oklch(0.72 0.14 60);
-  --pine: oklch(0.36 0.05 160);
-  --pine-foreground: oklch(0.96 0.015 85);
-  --cloudberry: oklch(0.72 0.14 60);
-  --cloudberry-soft: oklch(0.94 0.045 70);
-  --slate: oklch(0.45 0.02 250);
-  --sand: oklch(0.955 0.015 80);
+  --border: oklch(0.32 0.035 170);
+  --input: oklch(0.35 0.035 170);
+  --ring: oklch(0.78 0.16 158);
+  --pine: oklch(0.17 0.035 165);
+  --pine-foreground: oklch(0.96 0.012 165);
+  --cloudberry: oklch(0.76 0.14 70);
+  --cloudberry-soft: oklch(0.29 0.065 72);
+  --slate: oklch(0.46 0.025 230);
+  --sand: oklch(0.19 0.02 175);
 }
 
 @layer base {
@@ -76,7 +75,7 @@
     color: var(--color-foreground);
     font-family: var(--font-sans);
   }
-  h1, h2, h3 { font-family: var(--font-display); letter-spacing: -0.01em; }
+  h1, h2, h3 { font-family: var(--font-sans); letter-spacing: 0; }
 }
 
 @utility field {
@@ -92,8 +91,31 @@
 
 @utility eyebrow {
   font-size: 0.7rem;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--color-cloudberry);
   font-weight: 700;
+}
+
+@keyframes aurora-drift {
+  0%, 100% { transform: translate3d(-4%, 0, 0) rotate(-4deg); opacity: 0.45; }
+  50% { transform: translate3d(7%, 3%, 0) rotate(3deg); opacity: 0.7; }
+}
+
+@keyframes reply-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@utility aurora-drift {
+  animation: aurora-drift 14s ease-in-out infinite;
+}
+
+@utility reply-in {
+  animation: reply-in 300ms ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aurora-drift, .reply-in { animation: none; }
+  * { scroll-behavior: auto !important; }
 }
