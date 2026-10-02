@@ -26,7 +26,7 @@ function Booking() {
   const [free, setFree] = useState<number | null>(null);
 
   const check = () => {
-    if (!from || !to || to <= from) return toast.error("Välj giltiga datum, kära gäst.");
+    if (!from || !to || to <= from) return void toast.error("Välj giltiga datum, kära gäst.");
     setFree(Math.max(2, (from.charCodeAt(9) * 7 + guests) % TOTAL_ROOMS));
   };
   const book = () => {
@@ -90,8 +90,8 @@ function CheckInOut() {
       <Bubble>Smidigt och utan kö. Ange ditt rumsnummer så ordnar jag resten.</Bubble>
       <input className="field" placeholder="Rumsnummer (1–38)" value={room} onChange={(e) => setRoom(e.target.value)} />
       <div className="grid gap-3 sm:grid-cols-2">
-        <Button onClick={() => { const n = +room; if (!n || n > 38) return toast.error("Rumsnumret finns inte hos oss."); setStatus("in"); toast.success(`Incheckad i rum ${n}!`, { description: "Din digitala nyckel är aktiverad." }); }}><LogIn /> Checka in</Button>
-        <Button variant="outline" onClick={() => { const n = +room; if (!n || n > 38) return toast.error("Rumsnumret finns inte hos oss."); setStatus("out"); toast.success("Utcheckad. Tack för besöket!", { description: "Kjell vinkar adjö med svansen." }); }}><LogOut /> Checka ut</Button>
+        <Button onClick={() => { const n = +room; if (!n || n > 38) return void toast.error("Rumsnumret finns inte hos oss."); setStatus("in"); toast.success(`Incheckad i rum ${n}!`, { description: "Din digitala nyckel är aktiverad." }); }}><LogIn /> Checka in</Button>
+        <Button variant="outline" onClick={() => { const n = +room; if (!n || n > 38) return void toast.error("Rumsnumret finns inte hos oss."); setStatus("out"); toast.success("Utcheckad. Tack för besöket!", { description: "Kjell vinkar adjö med svansen." }); }}><LogOut /> Checka ut</Button>
       </div>
       {status === "in" && <p className="flex items-center gap-2 text-sm text-primary"><KeyRound className="h-4 w-4" /> Nyckelkod: <strong>{Math.floor(1000 + Math.random() * 9000)}</strong></p>}
     </div>

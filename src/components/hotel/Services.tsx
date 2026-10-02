@@ -22,8 +22,8 @@ function Sauna() {
   const [slots, setSlots] = useState<Record<string, number>>({ "16:00": 3, "17:30": 5, "19:00": 7, "20:30": 2 });
   const [mine, setMine] = useState<string | null>(null);
   const book = (t: string) => {
-    if (slots[t] >= MAX) return toast.error("Den tiden är fullbokad.");
-    setSlots((s) => ({ ...s, [t]: s[t] + 1, ...(mine ? { [mine]: s[mine] - 1 } : {}) }));
+    if ((slots[t] ?? 0) >= MAX) return void toast.error("Den tiden är fullbokad.");
+    setSlots((s) => ({ ...s, [t]: (s[t] ?? 0) + 1, ...(mine ? { [mine]: (s[mine] ?? 1) - 1 } : {}) }));
     setMine(t);
     toast.success(`Bastu bokad kl ${t}`, { description: "Handdukar ligger framme vid vedkorgen." });
   };
@@ -77,7 +77,7 @@ function Aurora() {
         <div className="space-y-1.5"><Label>Personer</Label><select className="field" value={n} onChange={(e) => setN(+e.target.value)}>{[1, 2, 3, 4].map((x) => <option key={x}>{x}</option>)}</select></div>
       </div>
       <p className="flex items-center gap-2 text-xs text-muted-foreground"><Users className="h-3.5 w-3.5" /> {left} platser kvar ikväll</p>
-      <Button className="w-full" onClick={() => { if (!date) return toast.error("Välj ett datum först."); if (n > left) return toast.error("Inte tillräckligt med platser."); setLeft(left - n); toast.success(`Norrskenstur bokad för ${n}`, { description: `Samling i lobbyn 20:45. Totalt ${n * 695} kr.` }); }}>Boka plats</Button>
+      <Button className="w-full" onClick={() => { if (!date) return void toast.error("Välj ett datum först."); if (n > left) return void toast.error("Inte tillräckligt med platser."); setLeft(left - n); toast.success(`Norrskenstur bokad för ${n}`, { description: `Samling i lobbyn 20:45. Totalt ${n * 695} kr.` }); }}>Boka plats</Button>
     </Card>
   );
 }
@@ -93,7 +93,7 @@ function Issue() {
         <div className="space-y-1.5"><Label>Kategori</Label><select className="field" value={cat} onChange={(e) => setCat(e.target.value)}>{["Värme", "VVS", "El & belysning", "Utrustning", "Städning", "Övrigt"].map((c) => <option key={c}>{c}</option>)}</select></div>
       </div>
       <div className="space-y-1.5"><Label>Beskrivning</Label><Textarea value={desc} onChange={(e) => setDesc(e.target.value)} placeholder="Beskriv kort vad som hänt" /></div>
-      <Button className="w-full" variant="outline" onClick={() => { if (!room || !desc) return toast.error("Fyll i rumsnummer och beskrivning."); toast.success(`Ärende registrerat för rum ${room}`, { description: "Vaktmästaren är på väg inom 30 minuter." }); setDesc(""); }}>Skicka felanmälan</Button>
+      <Button className="w-full" variant="outline" onClick={() => { if (!room || !desc) return void toast.error("Fyll i rumsnummer och beskrivning."); toast.success(`Ärende registrerat för rum ${room}`, { description: "Vaktmästaren är på väg inom 30 minuter." }); setDesc(""); }}>Skicka felanmälan</Button>
     </Card>
   );
 }
