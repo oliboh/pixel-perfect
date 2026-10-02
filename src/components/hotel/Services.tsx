@@ -7,9 +7,9 @@ import { Textarea } from "@/components/ui/textarea";
 
 function Card({ icon: Icon, title, sub, children }: { icon: typeof Flame; title: string; sub: string; children: React.ReactNode }) {
   return (
-    <article className="flex flex-col rounded-2xl border bg-card p-6 transition-colors hover:border-cloudberry/50">
+    <article data-service={title === "Bastu" ? "sauna" : undefined} className="flex flex-col rounded-lg border border-border/80 bg-card p-6 transition-colors hover:border-primary/40">
       <div className="mb-4 flex items-center gap-3">
-        <div className="grid h-10 w-10 place-items-center rounded-xl bg-cloudberry-soft text-accent-foreground"><Icon className="h-5 w-5" /></div>
+        <div className="grid h-10 w-10 place-items-center rounded-md bg-cloudberry-soft text-cloudberry"><Icon className="h-5 w-5" /></div>
         <div><h3 className="text-xl">{title}</h3><p className="text-xs text-muted-foreground">{sub}</p></div>
       </div>
       <div className="flex-1 space-y-4">{children}</div>
